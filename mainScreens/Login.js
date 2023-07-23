@@ -2,7 +2,7 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput,Alert,Image,ScrollVie
 import React,{useEffect,useState,useRef} from 'react';
 const HEIGHT=Dimensions.get('window').height;
 import SQLite from 'react-native-sqlite-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Open or create the database
 const db = SQLite.openDatabase
@@ -31,15 +31,18 @@ export default function Login({navigation}) {
               if (results.rows.length > 0) {
                 // Successful login
                 if(results.rows.item(0).roleType==='Admin'){
-                    navigation.navigate('Admin Dasboard')
+                    navigation.navigate('Admin Dashboard')
+                    AsyncStorage.setItem('@ApiData',JSON.stringify(results.rows.item(0).email))
                     Alert.alert('Logged in as: '+ results.rows.item(0).email)
                 }
                 else if(results.rows.item(0).roleType==='Customer'){
                   navigation.navigate('Customer Dashboard')
+                  AsyncStorage.setItem('@ApiData',JSON.stringify(results.rows.item(0).email))
                   Alert.alert('Logged in as: '+ results.rows.item(0).email)
                 }
                 else {
                   navigation.navigate('Service Provider Dashboard')
+                  AsyncStorage.setItem('@ApiData',JSON.stringify(results.rows.item(0).email))
                   Alert.alert('Logged in as: '+ results.rows.item(0).email)
                 }
               } 
@@ -101,7 +104,7 @@ export default function Login({navigation}) {
      
           
        
-<View style={{alignItems:"center", marginTop:20,marginBottom:20}}> 
+<View style={{alignItems:"center", marginTop:10,marginBottom:20}}> 
 <View style={styles.registerBtnView}>
         <TouchableOpacity onPress={UserLogin}
         style={{height:40,elevation:20,borderRadius:15,justifyContent:"center",alignItems:"center",width:"100%",borderColor:'#2a2a72',backgroundColor:"#2a2a72"}}
@@ -166,7 +169,7 @@ const styles = StyleSheet.create({
         fontFamily:"helvetica-light-587ebe5a59211",
         textAlign:"center",
         paddingHorizontal:10,
-        marginTop:10,
+        marginTop:5,
       },
       BTn:{
         backgroundColor:"#fff",
@@ -180,7 +183,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         paddingHorizontal:10,
-        marginTop:10,
+        marginTop:5,
       },
       btnText:{
         textAlign:"center",
@@ -190,7 +193,8 @@ const styles = StyleSheet.create({
       
       ProfileView:{
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
+        marginBottom:-10
       },
       LoginBtnView:{
         height:40,
