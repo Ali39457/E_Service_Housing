@@ -107,7 +107,7 @@ export default function Login({navigation}) {
 <View style={{alignItems:"center", marginTop:10,marginBottom:20}}> 
 <View style={styles.registerBtnView}>
         <TouchableOpacity onPress={UserLogin}
-        style={{height:40,elevation:20,borderRadius:15,justifyContent:"center",alignItems:"center",width:"100%",borderColor:'#2a2a72',backgroundColor:"#2a2a72"}}
+        style={{height:40,elevation:10,borderRadius:15,justifyContent:"center",alignItems:"center",width:"100%",borderColor:'#2a2a72',backgroundColor:"#2a2a72"}}
         >
        <Text style={styles.registerBTnText}>LOGIN</Text>
         </TouchableOpacity>

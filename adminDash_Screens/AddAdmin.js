@@ -140,6 +140,7 @@ export default function AddAdmin({navigation}) {
             <TextInput style={styles.TextInput}  
              value={phoneNo} keyboardType="numeric"
              placeholder="Contact-No." 
+             maxLength={11}
              onChangeText={(value)=>setphoneNo(value)} 
              />
        </View>

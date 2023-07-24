@@ -59,7 +59,7 @@ const RecordDisplay = ({navigation,route}) => {
          <Text style={styles.Text1}>Username</Text>
          </View>
        
-         <View style={{width:110,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+         <View style={{width:120,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
          <Text style={styles.Text1}>Email</Text>
          </View>
        
@@ -93,7 +93,7 @@ const RecordDisplay = ({navigation,route}) => {
         <Text style={styles.Text}>{item.username}</Text>
          </View>
             
-         <View style={{width:110,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+         <View style={{width:120,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
          <Text style={styles.Text}>{item.email}</Text>
          </View>
        
