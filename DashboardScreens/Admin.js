@@ -28,7 +28,7 @@ const Admin = ({navigation,route}) => {
     // array of data items here
      { id: 1, title: 'Add Admin',Press:'Add Admin' },
      { id: 2, title: 'Remove Admin',Press:'Remove Admin' },
-     { id: 3, title: 'Add Service',Press:'Add service' },
+     { id: 3, title: 'Add Service',Press:'Add Service' },
      { id: 4, title: 'Remove Service',Press:'Remove Service' },
      { id: 5, title: 'Add Customer',Press:'Add Customer' },
      { id: 6, title: 'Remove Customer',Press:'Remove Customer' },
