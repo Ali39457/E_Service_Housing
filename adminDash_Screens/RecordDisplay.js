@@ -62,6 +62,10 @@ const RecordDisplay = ({navigation,route}) => {
          <View style={{width:120,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
          <Text style={styles.Text1}>Email</Text>
          </View>
+
+         <View style={{width:120,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+         <Text style={styles.Text1}>Password</Text>
+         </View>
        
         <View style={{width:120,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
         <Text style={styles.Text1}>Address</Text>
@@ -95,6 +99,10 @@ const RecordDisplay = ({navigation,route}) => {
             
          <View style={{width:120,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
          <Text style={styles.Text}>{item.email}</Text>
+         </View>
+
+         <View style={{width:120,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+         <Text style={styles.Text}>{item.password}</Text>
          </View>
        
         <View style={{width:120,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>

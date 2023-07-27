@@ -98,7 +98,6 @@ export default function AddService({navigation}) {
 
 <View style={styles.ProfileView}>
 
-<Text style={styles.Text}>USER REGISTERATION</Text>
 <Image source={require('../assets/logo.jpg')} resizeMode="cover" style={styles.Image}></Image>
 </View>
 
@@ -252,9 +251,9 @@ const styles = StyleSheet.create({
                 justifyContent:"center",
                 alignItems:"center",
                 borderRadius:30,
-                elevation:30,
-                backgroundColor:"#0D98BB",
-                shadowColor:"#E9FFFB",
+                // elevation:30,
+                // backgroundColor:"#0D98BB",
+                // shadowColor:"#E9FFFB",
                 },
         FlatListOuterView:{
             backgroundColor:"#fff",

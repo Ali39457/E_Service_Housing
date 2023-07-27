@@ -35,6 +35,7 @@ const Admin = ({navigation,route}) => {
      { id: 7, title: 'Add Service Provider',Press:'Add ServiceProvider' },
      { id: 8, title: 'Remove Service Provider',Press:'Remove Service Provider' },
      { id: 9, title: 'Active Users',Press:'Active Users' },
+     { id: 10, title: 'View Feedback',Press:'View Feedback' },
   ];
   
  

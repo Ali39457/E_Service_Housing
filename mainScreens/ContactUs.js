@@ -12,7 +12,7 @@ const db = SQLite.openDatabase(
    error=>{console.log(error)}
 )
 
-const RemoveAdmin = ({navigation,route}) => {
+const ContactUs = ({navigation,route}) => {
 //   let [flatListItems, setFlatListItems] = useState([{id:1}]);
   let [flatListItems1, setFlatListItems1] = useState([]);
   const [email,setEmail]=useState('')
@@ -51,8 +51,9 @@ const RemoveAdmin = ({navigation,route}) => {
     return (
       <View
         key={item.user_id}
-        style={{ backgroundColor: '#0D98BB',padding:33 }}>
-            
+        style={{ backgroundColor: '#fff',padding:60,borderRadius:15,marginTop:20 }}>
+          <Text style={styles.Text0}>Contact Us, </Text>
+
          <View style={{flexDirection:"row"}}>
          <Text style={styles.Text1}>✉  </Text>
          <Text style={styles.Text2}>: {item.email}</Text>
@@ -71,21 +72,19 @@ const RemoveAdmin = ({navigation,route}) => {
     <SafeAreaView style={{ flex: 1,backgroundColor: '#0D98BB' }}> 
      <View style={styles.innerContainer}>
         <Text style={styles.Text}>Logged in as: {email}</Text>
-     </View>
-
-     <View style={{paddingLeft:33}}>
-     <Text style={styles.Text0}>Contact Us, </Text>
-     </View>
-
+       
       <ScrollView showsHorizontalScrollIndicator={true} horizontal={true} >
        
-          <FlatList style={{marginTop:-40}}
+          <FlatList style={{marginTop:0}}
             data={flatListItems1}
             // ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => listItemView1(item)}
           />
       </ScrollView>
+     </View>
+
+     
     </SafeAreaView>
   );
 
@@ -93,7 +92,7 @@ const RemoveAdmin = ({navigation,route}) => {
   
 };
 
-export default RemoveAdmin;
+export default ContactUs;
 
 const styles = StyleSheet.create({
 innerContainer: {
@@ -103,8 +102,8 @@ alignItems: 'center',
 
 Text0:{
 fontSize:17,
-color:"#fff",
-marginBottom:10,
+color:"#000",
+marginBottom:-1,
 marginTop:10,
      },
 
@@ -122,13 +121,13 @@ Text1:{
   fontSize:35,
   fontWeight:"900",
   textAlign:"center",
-  color:"#fff",
+  color:"#000",
   marginBottom:1
     },
 Text2:{
   fontSize:17,
   textAlign:"center",
-  color:"#fff",
+  color:"#000",
   marginTop:16,
   marginLeft:-7
 },
@@ -136,13 +135,13 @@ Text3:{
     fontSize:30,
     textAlign:"center",
     fontWeight:"900",
-    color:"#fff",
+    color:"#000",
     marginBottom:1
   },
   Text4:{
     fontSize:17,
     textAlign:"center",
-    color:"#fff",
+    color:"#000",
     marginTop:11
   }
 })

@@ -13,7 +13,7 @@ const db = SQLite.openDatabase(
 )
 
 
-const RemoveService = ({navigation,route}) => {
+const FeedbackDisplay = ({navigation,route}) => {
   let [flatListItems, setFlatListItems] = useState([{id:1}]);
   let [flatListItems1, setFlatListItems1] = useState([]);
   const [id,setId]=useState("");
@@ -21,7 +21,7 @@ const RemoveService = ({navigation,route}) => {
   useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
-        'SELECT * FROM user_service',
+        'SELECT * FROM feedback',
         [],
         (tx, results) => {
           var temp = [];
@@ -36,10 +36,10 @@ const RemoveService = ({navigation,route}) => {
   const DeleteUser = (userId) => {
     db.transaction((tx) => {
       // Execute the SQL query to delete the user
-      tx.executeSql('DELETE FROM user_service WHERE serviceId = ?', [userId], (txObj, resultSet) => {
+      tx.executeSql('DELETE FROM feedback WHERE feedbackId = ?', [userId], (txObj, resultSet) => {
         // Handle success (optional)
-        Alert.alert('Service deleted successfully.');
-        navigation.replace('Remove Service')
+        Alert.alert('Feedback deleted successfully.');
+        navigation.replace('View Feedback')
       },
       (txObj, error) => {
         // Handle error (optional)
@@ -52,14 +52,18 @@ const RemoveService = ({navigation,route}) => {
     return (
       <View
         key={item.user_id}
-        style={{ backgroundColor: '#0D98BB', padding: 10,flexDirection:"row",height:80 }}>
+        style={{ backgroundColor: '#0D98BB', padding: 10,borderWidth:0.50,flexDirection:"row",height:80 }}>
          
-         <View style={{width:110,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
-         <Text style={styles.Text1}>Service ID</Text>
+         <View style={{width:95,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+         <Text style={styles.Text1}>Feedback ID</Text>
          </View>
 
-         <View style={{width:182,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
-         <Text style={styles.Text1}>Service Name</Text>
+         <View style={{width:150,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+         <Text style={styles.Text1}>Email</Text>
+         </View>
+
+         <View style={{width:200,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+         <Text style={styles.Text1}>Feedback</Text>
          </View>
        
         <View style={{width:80,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
@@ -76,13 +80,19 @@ const RemoveService = ({navigation,route}) => {
         key={item.user_id}
         style={{ backgroundColor: '#0D98BB', paddingLeft: 10,PaddingRight:10,flexDirection:"row",height:60 }}>
         
-        <View style={{width:110,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-        <Text style={styles.Text}>{item.serviceId}</Text>
+        <View style={{width:95,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+        <Text style={styles.Text}>{item.feedbackId}</Text>
          </View>
 
-        <View style={{width:182,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-        <Text style={styles.Text}>{item.serviceName}</Text>
+         <View style={{width:150,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+        <Text style={styles.Text}>{item.email}</Text>
          </View>
+
+        <View style={{width:200,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+        <Text style={styles.Text}>{item.feedbackName}</Text>
+         </View>
+
+       
 
         <TouchableOpacity onPress={() => {
           Alert.alert('Warning!', 'Are you sure that you want to delete this', [
@@ -91,7 +101,7 @@ const RemoveService = ({navigation,route}) => {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            {text: 'YES', onPress: () => DeleteUser(item.serviceId)},
+            {text: 'YES', onPress: () => DeleteUser(item.feedbackId)},
           ]);
           
         }}
@@ -126,7 +136,7 @@ const RemoveService = ({navigation,route}) => {
   
 };
 
-export default RemoveService;
+export default FeedbackDisplay;
 
 const styles = StyleSheet.create({
 Text:{

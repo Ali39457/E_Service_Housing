@@ -21,6 +21,8 @@ import RemoveServiceProvider from '../adminDash_Screens/RemoveServiceProvider';
 import AddService from '../adminDash_Screens/AddService';
 import RemoveService from '../adminDash_Screens/RemoveService';
 import ContactUs from '../mainScreens/ContactUs';
+import FeedBack from '../mainScreens/FeedBack';
+import FeedbackDisplay from '../adminDash_Screens/FeedbackDisplay';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,11 +48,13 @@ function AppNavigator() {
       <Stack.Screen name="Remove Customer" component={RemoveCustomer} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Remove Service Provider" component={RemoveServiceProvider} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Active Users" component={RecordDisplay} options={{headerTitleAlign:"center"}}/>
+      <Stack.Screen name="View Feedback" component={FeedbackDisplay} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Add Service" component={AddService} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Remove Service" component={RemoveService} options={{headerTitleAlign:"center"}}/>
 
 
       <Stack.Screen name="Contact Us" component={ContactUs} options={{headerTitleAlign:"center"}}/>
+      <Stack.Screen name="Feedback" component={FeedBack} options={{headerTitleAlign:"center"}}/>
 
        </Stack.Navigator>
     </NavigationContainer>
