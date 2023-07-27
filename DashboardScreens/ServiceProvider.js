@@ -26,14 +26,9 @@ const ServiceProvider = ({navigation,route}) => {
 
   const data = [
     // array of data items here
-     { id: 1, title: 'Add Admin',Press:'Add Admin' },
-     { id: 2, title: 'Remove Admin',Press:'Remove Admin' },
-     { id: 3, title: 'Add Service',Press:'Add service' },
-     { id: 4, title: 'Remove Service',Press:'Remove Service' },
-     { id: 5, title: 'Add Customer',Press:'Add Customer' },
-     { id: 6, title: 'Remove Customer',Press:'Remove Customer' },
-     { id: 7, title: 'Add Service Provider',Press:'Add ServiceProvider' },
-     { id: 8, title: 'Remove Service Provider',Press:'Remove Service Provider' },
+     { id: 1, title: 'Approve Service',Press:'Approve Service' },
+     { id: 2, title: 'Contact Us',Press:'Contact Us' },
+     { id: 3, title: 'Feedback',Press:'Feedback' },
   ];
   
  
