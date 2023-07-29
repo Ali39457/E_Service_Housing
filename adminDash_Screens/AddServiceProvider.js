@@ -269,6 +269,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         fontSize:18,
         fontFamily:"helvetica-light-587ebe5a59211",
+        color:"#000"
         },
       
       ProfileView:{

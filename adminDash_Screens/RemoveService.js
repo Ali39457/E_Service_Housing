@@ -33,7 +33,7 @@ const RemoveService = ({navigation,route}) => {
     });
   }, []);
 
-  const DeleteUser = (userId) => {
+  const DeleteService = (userId) => {
     db.transaction((tx) => {
       // Execute the SQL query to delete the user
       tx.executeSql('DELETE FROM user_service WHERE serviceId = ?', [userId], (txObj, resultSet) => {
@@ -73,7 +73,7 @@ const RemoveService = ({navigation,route}) => {
   let listItemView1 = (item) => {
     return (
       <View
-        key={item.user_id}
+        key={item.serviceId}
         style={{ backgroundColor: '#0D98BB', paddingLeft: 10,PaddingRight:10,flexDirection:"row",height:60 }}>
         
         <View style={{width:110,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
@@ -91,7 +91,7 @@ const RemoveService = ({navigation,route}) => {
               onPress: () => console.log('Cancel Pressed'),
               style: 'cancel',
             },
-            {text: 'YES', onPress: () => DeleteUser(item.serviceId)},
+            {text: 'YES', onPress: () => DeleteService(item.serviceId)},
           ]);
           
         }}

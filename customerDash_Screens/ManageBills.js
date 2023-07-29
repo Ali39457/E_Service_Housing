@@ -2,7 +2,7 @@ import { StyleSheet, Text, View,TouchableOpacity,TextInput,Alert,Image,ScrollVie
 import React,{useEffect,useState,useRef} from 'react';
 const HEIGHT=Dimensions.get('window').height;
 import SQLite from 'react-native-sqlite-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const db = SQLite.openDatabase(
   {
@@ -14,58 +14,126 @@ const db = SQLite.openDatabase(
 )
 
 
-export default function AddCustomer({navigation}) {
+export default function ManageBills({navigation}) {
+
+   
+    const [accountTitle,setAccountTitle]=useState('')
+    const [accountNo,setAccountNo]=useState('')
+    const [amount,setAmount]=useState('')
+    const [txID,setTxID]=useState('')
+    const [billDate,setBillDate]=useState('')
+    const [email,setEmail]=useState('')
+
+////////////////////---bankType---/////////////////////////////
+    const [Data,setData]=useState([
+        {id:"1",title:"JazzCash"},
+        {id:"2",title:"EasyPaisa"},
+        {id:"3",title:"Askari Bank"},
+        {id:"4",title:"HBL Bank"},
+        {id:"5",title:"Other Bank"},
+    ]);
+    const [bankType,setBankType]=useState('')
+    const [show,setshow]=useState(false) 
+    
+//////////////////////Display-billType///////////////////////////
+const [Data1,setData1]=useState([
+  {id:"1",title:"Water Bill"},
+  {id:"2",title:"Electricity Bill"},
+  {id:"3",title:"Gas Bill"},
+]);
+    const [billType,setBillType]=useState('')
+    const [show1,setshow1]=useState(false) 
+/////////////////////////////////////////////////
+   
+
 
     useEffect(()=>{
-        LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
+      retrieveData();
+      LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     },[])
+  
+    const retrieveData = async () => {
+  
+      try {
+        await AsyncStorage.getItem("@ApiData").then(value=>{if(value!=null){
+          var user=JSON.parse(value)
+          setEmail(user)
+        }})
+        
+      } catch (e) {
+        console.log('Failed to fetch the data from storage!', e)
+      }
+  
+    };
 
 
     let register_user = () => {
-      console.log(username, password, email, address, phoneNo, roleType);
-  
-      if (!username) {
-        alert('Please fill name');
-        return;
-      }
-      if (!password) {
-        alert('Please fill password');
-        return;
-      }
-      if (!email) {
-        alert('Please fill email');
-        return;
-      }
 
-      if (!address) {
-        alert('Please fill address');
-        return;
-      }
+        if (!accountTitle) {
+            alert('Please fill Account Title');
+            return;
+          }
 
-      if (!phoneNo) {
-        alert('Please fill phoneNo');
-        return;
-      }
+          if (!accountNo) {
+            alert('Please fill Account No');
+            return;
+          }
 
-      if (!roleType) {
-        alert('Please fill roleType');
-        return;
-      }
-  
+    
+        if (!bankType) {
+            alert('Please Select Bank');
+            return;
+          }
+
+          if (!billType) {
+            alert('Please Select Bill');
+            return;
+          }
+
+
       db.transaction(function (tx) {
+
+        //  tx.executeSql(
+        //     'DROP TABLE bill_table',
+        //         [],
+        //         (txObj, resultSet) => {
+        //           // Success callback
+        //           console.log('Table removed successfully!');
+        //         },
+        //         (txObj, error) => {
+        //           // Error callback
+        //           console.log('Error creating table:', error);
+        //         }
+        //       );
+
+        // tx.executeSql(
+        //     `CREATE TABLE IF NOT EXISTS bill_table (billId INTEGER PRIMARY KEY,accountTitle TEXT,
+        //     accountNo VARCHAR,bankType TEXT,billType TEXT,billAmount INTEGER,txId INTEGER,billDate VARCHAR,email TEXT)`,
+        //     [],
+        //     (txObj, resultSet) => {
+        //       // Success callback
+        //       console.log('Table created successfully!');
+        //     },
+        //     (txObj, error) => {
+        //       // Error callback
+        //       console.log('Error creating table:', error);
+        //     }
+        //   );
+
+
         tx.executeSql(
-          'INSERT INTO table_user (username, password, email, address, phoneNo, roleType) VALUES (?,?,?,?,?,?)',
-          [username, password, email, address, phoneNo, roleType ],
+          'INSERT INTO bill_table (accountTitle,accountNo,bankType,billType,billAmount,txId,billDate,email) VALUES (?,?,?,?,?,?,?,?)',
+          [accountTitle,accountNo,bankType,billType,amount,txID,billDate,email ],
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
               Alert.alert(
                 'Success',
-                'Customer Registered Successfully',
+                'Bill Details Added Successfully',
                 [
                   {
                     text: 'Ok',
-                    onPress: () => navigation.navigate('Admin Dashboard'),
+                    onPress: () => console.log('Manage Bills'),
                   },
                 ],
                 { cancelable: false }
@@ -76,14 +144,7 @@ export default function AddCustomer({navigation}) {
       });
     };
 
-    const [username,setusername]=useState('')
-    const [password,setpassword]=useState('')
-    const [email,setemail]=useState('')
-    const [address,setaddress]=useState('')
-    const [phoneNo,setphoneNo]=useState('')
-    const [Data,setData]=useState()
-    const [roleType,setroleType]=useState('Customer')
-    const [show,setshow]=useState(false)  
+    
    //--------------------------------Main Code------------------------------------//
 
   return (
@@ -104,57 +165,32 @@ export default function AddCustomer({navigation}) {
 
       <View style={styles.TextInputView}>
             <TextInput style={styles.TextInput}  
-             value={username} keyboardType="email-address"
-             placeholder="Username" 
-             onChangeText={(value)=>setusername(value)} 
+             value={accountTitle}
+             placeholder="Account Title" 
+             onChangeText={(value)=>setAccountTitle(value)} 
              />
        </View> 
 
        <View style={styles.TextInputView}>
             <TextInput style={styles.TextInput}  
-             value={password}
-             placeholder="Password" 
-             secureTextEntry={true}
-             onChangeText={(value)=>setpassword(value)} 
+             value={accountNo}
+             placeholder="Account No" 
+             onChangeText={(value)=>setAccountNo(value)} 
              />
        </View> 
 
-       <View style={styles.TextInputView}>
-            <TextInput style={styles.TextInput}  
-             value={email} keyboardType="email-address"
-             placeholder="Email" 
-             onChangeText={(value)=>setemail(value)} 
-             />
-       </View> 
+{/* ////////////////-----BANK TYPE--------///////////////// */}
 
-
-       <View style={styles.TextInputView}>
-            <TextInput style={styles.TextInput}  
-             value={address} keyboardType="email-address"
-             placeholder="Address" 
-             onChangeText={(value)=>setaddress(value)} 
-             />
-       </View>
-
-       <View style={styles.TextInputView}>
-            <TextInput style={styles.TextInput}  
-             value={phoneNo} keyboardType="numeric"
-             placeholder="Contact-No." 
-             maxLength={11}
-             onChangeText={(value)=>setphoneNo(value)} 
-             />
-       </View>
-
-      {
-          roleType.length===0 ?
+       {
+          bankType.length===0 ?
           <View>
               <TouchableOpacity style={styles.BTn} onPress={()=>setshow(true)}>
-       <Text style={styles.btnText}>Please Select Role</Text>
+       <Text style={styles.btnText}>Select Bank</Text>
        </TouchableOpacity>
           </View> :
           <View>
               <TouchableOpacity style={styles.BTn} onPress={()=>setshow(true)}>
-       <Text style={styles.btnText}>{roleType}</Text>
+       <Text style={styles.btnText}>{bankType}</Text>
        </TouchableOpacity>
           </View>
       }
@@ -169,8 +205,8 @@ export default function AddCustomer({navigation}) {
                 return ( 
                     <TouchableOpacity style={styles.FlatListView} onPress={()=>{
                         setshow(false)
-                        Alert.alert(item.title +" selected!")
-                        setroleType(item.title)
+                        // Alert.alert(item.title +" selected!")
+                        setBankType(item.title)
                     }}>
                     <Text>{item.title}</Text>
                     </TouchableOpacity>  
@@ -180,6 +216,84 @@ export default function AddCustomer({navigation}) {
             />
           </View>:null
       }
+      
+{/* ////////////////-----BILL TYPE--------///////////////// */}
+
+      {
+          billType.length===0 ?
+          <View>
+              <TouchableOpacity style={styles.BTn} onPress={()=>setshow1(true)}>
+       <Text style={styles.btnText}>Select Bill</Text>
+       </TouchableOpacity>
+          </View> :
+          <View>
+              <TouchableOpacity style={styles.BTn} onPress={()=>setshow1(true)}>
+       <Text style={styles.btnText}>{billType}</Text>
+       </TouchableOpacity>
+          </View>
+      }
+       
+
+      {
+          show1 ? 
+          <View style={styles.FlatListOuterView}>
+         <FlatList
+            data={Data1}
+            renderItem={({item})=>{
+                return ( 
+                    <TouchableOpacity style={styles.FlatListView} onPress={()=>{
+                        setshow1(false)
+                        // Alert.alert(item.title +" selected!")
+                        setBillType(item.title)
+                    }}>
+                    <Text>{item.title}</Text>
+                    </TouchableOpacity>  
+                )
+               
+            }}
+            />
+          </View>:null
+      }
+
+      <View style={styles.TextInputView}>
+            <TextInput style={styles.TextInput}  
+             value={amount} keyboardType="numeric"
+             placeholder="Bill Amount" 
+             onChangeText={(value)=>setAmount(value)} 
+             />
+       </View>
+
+
+       <View style={styles.TextInputView}>
+            <TextInput style={styles.TextInput}  
+             value={txID} keyboardType="numeric"
+             placeholder="TxID" 
+             onChangeText={(value)=>setTxID(value)} 
+             />
+       </View>
+
+       <View style={styles.TextInputView}>
+            <TextInput style={styles.TextInput}  
+             value={billDate}
+             placeholder="DD-MM-YYYY" 
+             onChangeText={(value)=>setBillDate(value)} 
+             />
+       </View> 
+
+       <View style={styles.TextInputView}>
+            <TextInput style={styles.TextInput}  
+             value={email} keyboardType='email-address'
+             placeholder="Email" 
+             editable={false}
+            //  onChangeText={(value)=>setEmail(value)} 
+
+             />
+       </View> 
+
+
+      
+
+   
             
        
 <View style={{alignItems:"center", marginTop:20,marginBottom:20}}> 
@@ -188,7 +302,7 @@ export default function AddCustomer({navigation}) {
         <TouchableOpacity onPress={()=>register_user()}
         style={{height:40,elevation:10,borderRadius:15,justifyContent:"center",alignItems:"center",width:"100%",borderColor:'#2a2a72',backgroundColor:"#2a2a72"}}
         >
-       <Text style={styles.registerBTnText}>REGISTER</Text>
+       <Text style={styles.registerBTnText}>Submit</Text>
         </TouchableOpacity>
         {/* </LinearGradient> */}
 </View>
@@ -210,7 +324,7 @@ export default function AddCustomer({navigation}) {
 const styles = StyleSheet.create({
     container:{
          flex:1,
-         padding:20,
+         padding:10,
          justifyContent:"center",
          backgroundColor:"#0D98BB",
          
@@ -249,7 +363,8 @@ const styles = StyleSheet.create({
         fontFamily:"helvetica-light-587ebe5a59211",
         textAlign:"center",
         paddingHorizontal:10,
-        marginTop:10,
+        marginTop:5,
+        color:"#000"
       },
       BTn:{
         backgroundColor:"#fff",
@@ -263,7 +378,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         paddingHorizontal:10,
-        marginTop:10,
+        marginTop:5,
       },
       btnText:{
         textAlign:"center",
@@ -311,8 +426,8 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:"#4092a1",
         overflow:"hidden",
-        marginBottom:30,
-        marginTop:30
+        marginBottom:20,
+        marginTop:10
           },
         linearGradient: {
             flex: 1,

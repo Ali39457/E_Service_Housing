@@ -203,6 +203,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         paddingHorizontal:10,
         marginTop:10,
+        color:"#000"
       },
       TextInput1:{
         backgroundColor:"#fff",
@@ -216,6 +217,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         paddingHorizontal:10,
         marginTop:10,
+        color:"#000"
       },
       BTn:{
         backgroundColor:"#fff",
