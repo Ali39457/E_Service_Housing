@@ -25,30 +25,30 @@ export default function AddAdmin({navigation}) {
       console.log(username, password, email, address, phoneNo, roleType);
   
       if (!username) {
-        alert('Please fill name');
+        alert('Please fill Username');
         return;
       }
       if (!password) {
-        alert('Please fill password');
+        alert('Please fill Password');
         return;
       }
       if (!email) {
-        alert('Please fill email');
+        alert('Please fill Email');
         return;
       }
 
       if (!address) {
-        alert('Please fill address');
+        alert('Please fill Address');
         return;
       }
 
       if (!phoneNo) {
-        alert('Please fill phoneNo');
+        alert('Please fill Phone No');
         return;
       }
 
       if (!roleType) {
-        alert('Please fill roleType');
+        alert('Please fill Role Type');
         return;
       }
   

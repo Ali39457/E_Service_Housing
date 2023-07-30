@@ -40,6 +40,11 @@ export default function AddService({navigation}) {
 
     let add_feedback = () => {
         console.log(feedbackName);
+
+        if (!feedbackName) {
+          alert('Please fill feedback');
+          return;
+        }
     
         // if (!feedbackName) {
         //   alert('Please fill service name');
