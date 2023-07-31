@@ -70,7 +70,7 @@ export default function AddService({navigation}) {
                   [
                     {
                       text: 'Ok',
-                      onPress: () => navigation.navigate('Admin Dashboard'),
+                      onPress: () => navigation.navigate('Add Service'),
                     },
                   ],
                   { cancelable: false }

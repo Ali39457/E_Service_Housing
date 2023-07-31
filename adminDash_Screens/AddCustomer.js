@@ -65,7 +65,7 @@ export default function AddCustomer({navigation}) {
                 [
                   {
                     text: 'Ok',
-                    onPress: () => navigation.navigate('Admin Dashboard'),
+                    onPress: () => navigation.navigate('Add Customer'),
                   },
                 ],
                 { cancelable: false }

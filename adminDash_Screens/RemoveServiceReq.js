@@ -13,7 +13,7 @@ const db = SQLite.openDatabase(
 )
 
 
-const ViewServiceStatus = ({navigation,route}) => {
+const RemoveServiceReq = ({navigation,route}) => {
 
   /////////////////----States----////////////////////////////
 
@@ -55,6 +55,23 @@ const ViewServiceStatus = ({navigation,route}) => {
     }
 
   };
+  /////////////////----DeleteReq----////////////////////////////
+
+  const DeleteReq = (userId) => {
+    db.transaction((tx) => {
+      // Execute the SQL query to delete the user
+      tx.executeSql('DELETE FROM request_service WHERE serviceId = ?', [userId], (txObj, resultSet) => {
+        // Handle success (optional)
+        Alert.alert('Request deleted successfully.');
+        navigation.replace('Remove Service Request')
+      },
+      (txObj, error) => {
+        // Handle error (optional)
+        Alert.alert('Error deleting user:', error);
+      });
+    });
+  }
+
 
      /////////////////------listItemView----////////////////////////////
 
@@ -96,6 +113,11 @@ const ViewServiceStatus = ({navigation,route}) => {
         <Text style={styles.Text1}>Status</Text>
         </View>
 
+        <View style={{width:80,borderWidth:1,backgroundColor:"#1e454c",justifyContent:"center",alignItems:"center"}}>
+        <Text style={styles.Text1}>Remove</Text>
+        </View>
+
+
       </View>
     );
   };
@@ -103,7 +125,7 @@ const ViewServiceStatus = ({navigation,route}) => {
      /////////////////------listItemView-1----////////////////////////////
 
   let listItemView1 = (item) => {
-    if(item.email===email){
+  
       return (
         <View
           key={item.serviceId}
@@ -140,10 +162,24 @@ const ViewServiceStatus = ({navigation,route}) => {
           <View style={item.status==="Pending" ? styles.Pending : styles.Accepted }>
           <Text style={item.status==="Pending" ? styles.PendingText : styles.AcceptedText}>{item.status}</Text>
           </View>
+
+          <TouchableOpacity onPress={() => {
+          Alert.alert('Warning!', 'Are you sure that you want to delete this', [
+            {
+              text: 'NO',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'YES', onPress: () => DeleteReq(item.serviceId)},
+          ]);
+          
+        }}
+        style={{width:80,borderWidth:1,elevation:10,backgroundColor:"red",justifyContent:"center",alignItems:"center"}}>
+        <Text style={styles.Text1}>DELETE</Text>
+        </TouchableOpacity>
   
         </View>
       );
-    }
   };
 
   return (
@@ -169,7 +205,7 @@ const ViewServiceStatus = ({navigation,route}) => {
   
 };
 
-export default ViewServiceStatus;
+export default RemoveServiceReq;
 
 const styles = StyleSheet.create({
 Text:{

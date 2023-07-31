@@ -65,7 +65,7 @@ export default function AddServiceProvider({navigation}) {
                 [
                   {
                     text: 'Ok',
-                    onPress: () => navigation.navigate('Admin Dashboard'),
+                    onPress: () => navigation.navigate('Add Service Provider'),
                   },
                 ],
                 { cancelable: false }

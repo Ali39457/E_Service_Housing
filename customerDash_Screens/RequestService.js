@@ -84,35 +84,6 @@ export default function RequestService({navigation}) {
 
   };
 
-
-
-    // let request_service = () => {
-    //   console.log(username, email, address, phoneNo, serviceType);
-  
-    //   db.transaction(function (tx) {
-    //     tx.executeSql(
-    //       'INSERT INTO table_user (username, password, email, address, phoneNo, serviceType) VALUES (?,?,?,?,?,?)',
-    //       [username, password, email, address, phoneNo, serviceType ],
-    //       (tx, results) => {
-    //         console.log('Results', results.rowsAffected);
-    //         if (results.rowsAffected > 0) {
-    //           Alert.alert(
-    //             'Success',
-    //             'Admin Registered Successfully',
-    //             [
-    //               {
-    //                 text: 'Ok',
-    //                 onPress: () => navigation.navigate('Admin Dashboard'),
-    //               },
-    //             ],
-    //             { cancelable: false }
-    //           );
-    //         } else alert('Registration Failed');
-    //       }
-    //     );
-    //   });
-    // };
-
    //--------------------------------Main Code------------------------------------//
  
 
@@ -227,19 +198,34 @@ renderItem={({item})=>{
           console.log(item.username, item.email, item.address, item.phoneNo, serviceType,reason);
   
           db.transaction(function (tx) {
+
+            //  tx.executeSql(
+            //     `CREATE TABLE IF NOT EXISTS request_service (serviceId INTEGER PRIMARY KEY,username VARCHAR,
+            //        email VARCHAR, address VARCHAR, phoneNo INTEGER , serviceType TEXT, reason TEXT, status TEXT)`,
+            //     [],
+            //     (txObj, resultSet) => {
+            //       // Success callback
+            //       console.log('Table created successfully!');
+            //     },
+            //     (txObj, error) => {
+            //       // Error callback
+            //       console.log('Error creating table:', error);
+            //     }
+            //   );
+ 
             tx.executeSql(
-              'INSERT INTO table_user (username, password, email, address, phoneNo, serviceType) VALUES (?,?,?,?,?,?)',
-              [username, password, email, address, phoneNo, serviceType,'Pending' ],
+              'INSERT INTO request_service (username, email, address, phoneNo, serviceType, reason, status) VALUES (?,?,?,?,?,?,?)',
+              [item.username, item.email, item.address, item.phoneNo, serviceType,reason,'Pending' ],
               (tx, results) => {
                 console.log('Results', results.rowsAffected);
                 if (results.rowsAffected > 0) {
                   Alert.alert(
                     'Success',
-                    'Admin Registered Successfully',
+                    'Request Submitted Successfully',
                     [
                       {
                         text: 'Ok',
-                        onPress: () => navigation.navigate('Admin Dashboard'),
+                        onPress: () => navigation.navigate('Request Service'),
                       },
                     ],
                     { cancelable: false }
@@ -247,11 +233,12 @@ renderItem={({item})=>{
                 } else alert('Registration Failed');
               }
             );
+            
           });
         }}
         style={{height:40,elevation:10,borderRadius:15,justifyContent:"center",alignItems:"center",width:"100%",borderColor:'#2a2a72',backgroundColor:"#2a2a72"}}
         >
-       <Text style={styles.registerBTnText}>REGISTER</Text>
+       <Text style={styles.registerBTnText}>Submit</Text>
         </TouchableOpacity>
         {/* </LinearGradient> */}
 </View>

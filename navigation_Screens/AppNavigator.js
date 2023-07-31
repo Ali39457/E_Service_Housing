@@ -28,6 +28,8 @@ import ManageBills from '../customerDash_Screens/ManageBills';
 import ViewBills from '../customerDash_Screens/ViewBills';
 import ViewServiceStatus from '../customerDash_Screens/ViewServiceStatus';
 import DisplayBills from '../adminDash_Screens/DisplayBills';
+import ApproveService from '../serviceProvider_Screens/ApproveService';
+import RemoveServiceReq from '../adminDash_Screens/RemoveServiceReq';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,7 +50,7 @@ function AppNavigator() {
       
       <Stack.Screen name="Add Admin" component={AddAdmin} options={{headerTitleAlign:"center"}}/> 
       <Stack.Screen name="Add Customer" component={AddCustomer} options={{headerTitleAlign:"center"}}/>
-      <Stack.Screen name="Add ServiceProvider" component={AddServiceProvider} options={{headerTitleAlign:"center"}}/>
+      <Stack.Screen name="Add Service Provider" component={AddServiceProvider} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Remove Admin" component={RemoveAdmin} options={{headerTitleAlign:"center"}}/> 
       <Stack.Screen name="Remove Customer" component={RemoveCustomer} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Remove Service Provider" component={RemoveServiceProvider} options={{headerTitleAlign:"center"}}/>
@@ -57,6 +59,7 @@ function AppNavigator() {
       <Stack.Screen name="Add Service" component={AddService} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Remove Service" component={RemoveService} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="View Users Bill" component={DisplayBills} options={{headerTitleAlign:"center"}}/>
+      <Stack.Screen name="Remove Service Request" component={RemoveServiceReq} options={{headerTitleAlign:"center"}}/>
 
       <Stack.Screen name="Contact Us" component={ContactUs} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Feedback" component={FeedBack} options={{headerTitleAlign:"center"}}/>
@@ -65,6 +68,8 @@ function AppNavigator() {
       <Stack.Screen name="View Bills" component={ViewBills} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="View Service Status" component={ViewServiceStatus} options={{headerTitleAlign:"center"}}/>
       <Stack.Screen name="Request Service" component={RequestService} options={{headerTitleAlign:"center"}}/>
+
+      <Stack.Screen name="Approve Service" component={ApproveService} options={{headerTitleAlign:"center"}}/>
 
 
        </Stack.Navigator>

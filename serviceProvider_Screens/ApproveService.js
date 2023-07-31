@@ -13,13 +13,12 @@ const db = SQLite.openDatabase(
 )
 
 
-const ViewServiceStatus = ({navigation,route}) => {
+const ApproveService = ({navigation,route}) => {
 
   /////////////////----States----////////////////////////////
 
   let [flatListItems, setFlatListItems] = useState([{id:1}]);
   let [flatListItems1, setFlatListItems1] = useState([]);
-  const [email,setEmail]=useState('')
  /////////////////----useEffect----////////////////////////////
 
   useEffect(() => {
@@ -55,6 +54,24 @@ const ViewServiceStatus = ({navigation,route}) => {
     }
 
   };
+
+   /////////////////----retrieveData----////////////////////////////
+
+
+  const UpdateStatus = (userId) => {
+    db.transaction((tx) => {
+      // Execute the SQL query to delete the user
+      tx.executeSql('UPDATE request_service SET status = "Accepted" WHERE serviceId = ?', [userId], (txObj, resultSet) => {
+        // Handle success (optional)
+        Alert.alert('Request Accepted.');
+        navigation.replace('Approve Service')
+      },
+      (txObj, error) => {
+        // Handle error (optional)
+        Alert.alert('Error deleting user:', error);
+      });
+    });
+  }
 
      /////////////////------listItemView----////////////////////////////
 
@@ -103,48 +120,52 @@ const ViewServiceStatus = ({navigation,route}) => {
      /////////////////------listItemView-1----////////////////////////////
 
   let listItemView1 = (item) => {
-    if(item.email===email){
-      return (
-        <View
-          key={item.serviceId}
-          style={{ backgroundColor: '#0D98BB', paddingLeft: 10,PaddingRight:10,flexDirection:"row",height:50 }}>
-          
-          <View style={{width:60,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.serviceId}</Text>
-           </View>
-  
-          <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.username}</Text>
-           </View>
+      if(item.status==='Pending'){
+        return (
+            <View
+              key={item.serviceId}
+              style={{ backgroundColor: '#0D98BB', paddingLeft: 10,PaddingRight:10,flexDirection:"row",height:50 }}>
               
-           <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-           <Text style={styles.Text}>{item.email}</Text>
-           </View>
-         
-          <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.address}</Text>
-          </View>
-  
-          <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.phoneNo}</Text>
-          </View>
-  
-          <View style={{width:100,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.serviceType}</Text>
-          </View>
-  
-          <View style={{width:150,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
-          <Text style={styles.Text}>{item.reason}</Text>
-          </View>
-  
-          <View style={item.status==="Pending" ? styles.Pending : styles.Accepted }>
-          <Text style={item.status==="Pending" ? styles.PendingText : styles.AcceptedText}>{item.status}</Text>
-          </View>
-  
-        </View>
-      );
-    }
+              <View style={{width:60,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.serviceId}</Text>
+               </View>
+      
+              <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.username}</Text>
+               </View>
+                  
+               <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+               <Text style={styles.Text}>{item.email}</Text>
+               </View>
+             
+              <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.address}</Text>
+              </View>
+      
+              <View style={{width:130,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.phoneNo}</Text>
+              </View>
+      
+              <View style={{width:100,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.serviceType}</Text>
+              </View>
+      
+              <View style={{width:150,borderWidth:1,backgroundColor:"#E9FFFB",justifyContent:"center",alignItems:"center"}}>
+              <Text style={styles.Text}>{item.reason}</Text>
+              </View>
+      
+            <TouchableOpacity 
+            onPress={()=>UpdateStatus(item.serviceId)}
+            style={{width:80,borderWidth:1,elevation:10,backgroundColor:"#2a2a72",justifyContent:"center",alignItems:"center",borderColor:"#fff",borderWidth:2}}>
+            <Text style={styles.Text1}>Accept</Text>
+            </TouchableOpacity>
+      
+            </View>
+          );
+      }
+      
   };
+
 
   return (
     <SafeAreaView style={{ flex: 1,backgroundColor: '#0D98BB' }}> 
@@ -169,7 +190,7 @@ const ViewServiceStatus = ({navigation,route}) => {
   
 };
 
-export default ViewServiceStatus;
+export default ApproveService;
 
 const styles = StyleSheet.create({
 Text:{
@@ -190,34 +211,5 @@ Text2:{
   color:"#fff",
   marginBottom:30,
   marginTop:20
-},
-Pending:{
-  width:80,
-  borderWidth:1,
-  backgroundColor:"orange",
-  justifyContent:"center",
-  alignItems:"center"
-},
-PendingText:{
-  fontFamily:"Helvetica-Bold",
-    fontSize:15,
-    textAlign:"center",
-    color:"#fff",
-    fontWeight:"800",
-    },
-
-Accepted:{
-      width:80,
-      borderWidth:1,
-      backgroundColor:"green",
-      justifyContent:"center",
-      alignItems:"center"
-    },
-AcceptedText:{
-      fontFamily:"Helvetica-Bold",
-        fontSize:15,
-        textAlign:"center",
-        color:"#fff",
-        fontWeight:"800",
-        },
+}
 })

@@ -33,11 +33,12 @@ const Admin = ({navigation,route}) => {
      { id: 4, title: 'Remove Service',Press:'Remove Service' },
      { id: 5, title: 'Add Customer',Press:'Add Customer' },
      { id: 6, title: 'Remove Customer',Press:'Remove Customer' },
-     { id: 7, title: 'Add Service Provider',Press:'Add ServiceProvider' },
+     { id: 7, title: 'Add Service Provider',Press:'Add Service Provider' },
      { id: 8, title: 'Remove Service Provider',Press:'Remove Service Provider' },
      { id: 9, title: 'Active Users',Press:'Active Users' },
      { id: 10, title: 'View Feedback',Press:'View Feedback' },
-     { id: 10, title: 'View Users Bill',Press:'View Users Bill' },
+     { id: 11, title: 'View Users Bill',Press:'View Users Bill' },
+     { id: 12, title: 'Remove Service Request',Press:'Remove Service Request' },
   ];
   
  

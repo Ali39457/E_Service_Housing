@@ -65,7 +65,7 @@ export default function AddAdmin({navigation}) {
                 [
                   {
                     text: 'Ok',
-                    onPress: () => navigation.navigate('Admin Dashboard'),
+                    onPress: () => navigation.navigate('Add Admin'),
                   },
                 ],
                 { cancelable: false }
