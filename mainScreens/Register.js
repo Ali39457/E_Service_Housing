@@ -16,6 +16,7 @@ const db = SQLite.openDatabase(
 
 export default function Register({navigation}) {
 
+
     useEffect(()=>{
         LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
     },[])
@@ -23,7 +24,7 @@ export default function Register({navigation}) {
 
     let register_user = () => {
       console.log(username, password, email, address, phoneNo, roleType);
-  
+
       if (!username) {
         alert('Please fill Username');
         return;
@@ -52,11 +53,23 @@ export default function Register({navigation}) {
         return;
       }
   
-      db.transaction(function (tx) {
+      db.transaction((tx) => {
         tx.executeSql(
-          'INSERT INTO table_user (username, password, email, address, phoneNo, roleType) VALUES (?,?,?,?,?,?)',
-          [username, password, email, address, phoneNo, roleType ],
+          'SELECT * FROM table_user WHERE username = ?',
+          [username],
           (tx, results) => {
+            const len = results.rows.length;
+  // Username already exists
+      if (len > 0) {
+              alert('Username already exists');
+            }
+  // Username not already exists
+      else {
+        db.transaction(function (tx) {
+        tx.executeSql(
+        'INSERT INTO table_user (username, password, email, address, phoneNo, roleType) VALUES (?,?,?,?,?,?)',
+        [username, password, email, address, phoneNo, roleType ],
+        (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
               Alert.alert(
@@ -74,6 +87,15 @@ export default function Register({navigation}) {
           }
         );
       });
+            }
+          },
+          (tx, error) => {
+            console.error('Error querying database:', error);
+          }
+        );
+      });
+
+      
     };
 
     const [username,setusername]=useState('')
